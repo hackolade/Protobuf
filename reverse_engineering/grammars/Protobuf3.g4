@@ -69,7 +69,7 @@ extensions
 // Oneof and oneof field
 
 oneof
-  : ONEOF oneofName LC ( optionStatement | oneofField | emptyStatement )* RC
+  : ONEOF oneofName (COMMENT | lineComment+)? LC ( optionStatement | oneofField | emptyStatement )* RC
   ;
 
 oneofField
@@ -150,7 +150,7 @@ topLevelDef
 // enum
 
 enumDef
-  : (COMMENT | lineComment+)? ENUM enumName enumBody
+  : (COMMENT | lineComment+)? ENUM enumName (COMMENT | lineComment+)? enumBody
   ;
 
 enumBody
@@ -180,7 +180,7 @@ enumValueOption
 // message
 
 messageDef
-  : (COMMENT | lineComment+)? MESSAGE messageName messageBody
+  : (COMMENT | lineComment+)? MESSAGE messageName (COMMENT | lineComment+)? messageBody
   ;
 
 messageBody
@@ -204,7 +204,7 @@ messageElement
 // service
 
 serviceDef
-  : SERVICE serviceName LC serviceElement* RC
+  : SERVICE serviceName (COMMENT | lineComment+)? LC serviceElement* RC
   ;
 
 serviceElement
@@ -216,7 +216,7 @@ serviceElement
   ;
 
 rpc
-  : RPC rpcName LP ( STREAM )? messageType RP
+  : RPC rpcName (COMMENT | lineComment+)? LP ( STREAM )? messageType RP
         RETURNS LP ( STREAM )? messageType RP
         (LC ( optionStatement | emptyStatement )* RC | SEMI)
   ;
