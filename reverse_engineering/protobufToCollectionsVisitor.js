@@ -184,11 +184,15 @@ class Visitor extends Protobuf3Visitor {
 		const name = getName(ctx.oneofName());
 		const options = this.visitIfExists(ctx, 'optionStatement');
 		const fields = this.visitIfExists(ctx, 'oneofField');
+		const lineComment = this.visitIfExists(ctx, 'lineComment', []).map(comment => comment.replace(/^\/\//gm, '')).join('\n');
+		const comment = getName(ctx?.COMMENT()).replace('/*', '').replace('*/', '').replaceAll('*', '');
+
 		return {
 			elementType: ONE_OF_TYPE,
 			name,
 			options,
-			fields
+			fields,
+			description: `${comment}${lineComment}`,
 		}
 	}
 
