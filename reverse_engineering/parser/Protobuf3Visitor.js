@@ -269,6 +269,11 @@ Protobuf3Visitor.prototype.visitFloatLit = function (ctx) {
   return this.visitChildren(ctx);
 };
 
+// Visit a parse tree produced by Protobuf3Parser#comment.
+Protobuf3Visitor.prototype.visitComment = function (ctx) {
+  return this.visitChildren(ctx);
+};
+
 // Visit a parse tree produced by Protobuf3Parser#lineComment.
 Protobuf3Visitor.prototype.visitLineComment = function (ctx) {
   return this.visitChildren(ctx);

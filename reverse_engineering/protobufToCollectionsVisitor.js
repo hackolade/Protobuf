@@ -63,7 +63,7 @@ class Visitor extends Protobuf3Visitor {
 
 	visitMessageDef(ctx) {
 		const lineComment = this.visitIfExists(ctx, 'lineComment', []).map(comment => comment.replace(/^\/\//gm, '')).join('\n');
-		const comment = getName(ctx?.COMMENT()).replace('/*', '').replace('*/', '').replaceAll('*', '');
+		const comment = this.visitIfExists(ctx, 'comment', []).join('\n');
 		const name = getName(ctx.messageName());
 		const body = this.visit(ctx.messageBody());
 		return {
@@ -122,7 +122,7 @@ class Visitor extends Protobuf3Visitor {
 
 	visitEnumDef(ctx) {
 		const lineComment = this.visitIfExists(ctx, 'lineComment', []).map(comment => comment.replace(/^\/\//gm, '')).join('\n');
-		const comment = getName(ctx?.COMMENT()).replace('/*', '').replace('*/', '').replaceAll('*', '');
+		const comment = this.visitIfExists(ctx, 'comment', []).join('\n');
 		const name = getName(ctx.enumName());
 		const body = this.visit(ctx.enumBody());
 		return {
@@ -185,7 +185,7 @@ class Visitor extends Protobuf3Visitor {
 		const options = this.visitIfExists(ctx, 'optionStatement');
 		const fields = this.visitIfExists(ctx, 'oneofField');
 		const lineComment = this.visitIfExists(ctx, 'lineComment', []).map(comment => comment.replace(/^\/\//gm, '')).join('\n');
-		const comment = getName(ctx?.COMMENT()).replace('/*', '').replace('*/', '').replaceAll('*', '');
+		const comment = this.visitIfExists(ctx, 'comment', []).join('\n');
 
 		return {
 			elementType: ONE_OF_TYPE,
@@ -261,6 +261,10 @@ class Visitor extends Protobuf3Visitor {
 
 	visitLineComment(ctx) {
 		return getName(ctx);
+	}
+
+	visitComment(ctx) {
+		return getName(ctx).replace('/*', '').replace('*/', '').replaceAll('*', '');
 	}
 
 	visitIfExists(ctx, funcName, defaultValue) {
