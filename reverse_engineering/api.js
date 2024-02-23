@@ -33,7 +33,7 @@ module.exports = {
 			const fileDefinitions = parser.proto().accept(new protoToCollectionsVisitor());
 			if(_.isEmpty(fileDefinitions.messages) && _.isEmpty(fileDefinitions.enums)){
 				const errorObject = {
-					message: `No definitions was found in the file`,
+					message: `No definitions were found in the file`,
 					stack: {},
 				};
 				logger.log('error', errorObject, 'ProtoBuf file Reverse-Engineering Error');
