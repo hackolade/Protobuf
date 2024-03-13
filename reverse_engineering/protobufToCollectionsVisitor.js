@@ -90,7 +90,7 @@ class Visitor extends Protobuf3Visitor {
 	}
 
 	visitField(ctx) {
-		const comment = getName(ctx?.LINE_COMMENT())
+		const comment = getName(ctx?.fieldLineComment())
 		const type = getName(ctx.type_());
 		const name = getName(ctx.fieldName());
 		const fieldNumber = getName(ctx.fieldNumber());
