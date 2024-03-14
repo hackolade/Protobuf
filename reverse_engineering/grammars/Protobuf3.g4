@@ -80,7 +80,7 @@ oneof
   ;
 
 oneofField
-  : type_ fieldName EQ fieldNumber ( LB fieldOptions RB )? SEMI  LINE_COMMENT?
+  : type_ fieldName EQ fieldNumber ( LB fieldOptions RB )? SEMI fieldLineComment?
   ;
 
 // Map field

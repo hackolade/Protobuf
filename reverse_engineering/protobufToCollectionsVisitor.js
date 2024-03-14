@@ -198,7 +198,7 @@ class Visitor extends Protobuf3Visitor {
 
 	visitOneofField(ctx) {
 		const type = getName(ctx.type_());
-		const comment = getName(ctx?.LINE_COMMENT())
+		const comment = getName(ctx?.fieldLineComment())
 		const name = getName(ctx.fieldName());
 		const fieldNumber = getName(ctx.fieldNumber());
 		const options = this.visitIfExists(ctx, 'fieldOptions', []);
