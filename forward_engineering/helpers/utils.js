@@ -3,7 +3,7 @@ const MAX_CHAR_LENGTH = 10;
 const formatComment = comment => {
     return !comment ? '' :
         comment.replaceAll('\n', '').split(' ')
-            .reduce((descriptionComment, word, i) => { return descriptionComment + ' ' + word + (i % MAX_CHAR_LENGTH === MAX_CHAR_LENGTH - 1 ? '\n*' : '') }, '/*') + '\n*/\n';
+            .reduce((descriptionComment, word, i) => { return descriptionComment + ' ' + word + (i % MAX_CHAR_LENGTH === MAX_CHAR_LENGTH - 1 ? '\n*' : '') }, '/*') + '*/\n';
 }
 
 /**
@@ -24,7 +24,7 @@ const wrapInCommentBlock = ({ statement, spacePrefix }) => {
     .map(getCommentBodyLine)
     .join(`\n${spacePrefix}*\n`);
 
-  return `${spacePrefix}/*\n` + commentBody + `\n${spacePrefix}*/\n`;
+  return `${spacePrefix}/*\n` + commentBody + `\n${spacePrefix}*/`;
 };
 
 module.exports = {
