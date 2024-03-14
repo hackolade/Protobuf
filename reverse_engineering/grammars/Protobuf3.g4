@@ -76,7 +76,7 @@ extensions
 // Oneof and oneof field
 
 oneof
-  : ((comment | lineComment+)+)? ONEOF oneofName ((comment | lineComment+)+)? LC ( optionStatement | oneofField | emptyStatement | lineComment | comment )* RC
+  : ((comment | lineComment+)+)? ONEOF oneofName ((comment | lineComment+)+)? LC ( optionStatement | oneofField | emptyStatement | LINE_COMMENT | COMMENT )* RC
   ;
 
 oneofField

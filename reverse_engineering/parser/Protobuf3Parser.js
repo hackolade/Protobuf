@@ -186,23 +186,23 @@ var serializedATN = [
   "\u00de\u00df\u0003\u0002\u0002\u0002\u00df\u00e0\u0003\u0002\u0002\u0002",
   "\u00e0\u00e8\u00071\u0002\u0002\u00e1\u00e7\u0005\n\u0006\u0002\u00e2",
   "\u00e7\u0005\u001a\u000e\u0002\u00e3\u00e7\u0005H%\u0002\u00e4\u00e7",
-  "\u0005j6\u0002\u00e5\u00e7\u0005h5\u0002\u00e6\u00e1\u0003\u0002\u0002",
-  "\u0002\u00e6\u00e2\u0003\u0002\u0002\u0002\u00e6\u00e3\u0003\u0002\u0002",
-  "\u0002\u00e6\u00e4\u0003\u0002\u0002\u0002\u00e6\u00e5\u0003\u0002\u0002",
-  "\u0002\u00e7\u00ea\u0003\u0002\u0002\u0002\u00e8\u00e6\u0003\u0002\u0002",
-  "\u0002\u00e8\u00e9\u0003\u0002\u0002\u0002\u00e9\u00eb\u0003\u0002\u0002",
-  "\u0002\u00ea\u00e8\u0003\u0002\u0002\u0002\u00eb\u00ec\u00072\u0002",
-  "\u0002\u00ec\u0019\u0003\u0002\u0002\u0002\u00ed\u00ee\u0005 \u0011",
-  "\u0002\u00ee\u00ef\u0005R*\u0002\u00ef\u00f0\u0007,\u0002\u0002\u00f0",
-  "\u00f5\u0005\u0014\u000b\u0002\u00f1\u00f2\u0007/\u0002\u0002\u00f2",
-  "\u00f3\u0005\u0010\t\u0002\u00f3\u00f4\u00070\u0002\u0002\u00f4\u00f6",
-  "\u0003\u0002\u0002\u0002\u00f5\u00f1\u0003\u0002\u0002\u0002\u00f5\u00f6",
-  "\u0003\u0002\u0002\u0002\u00f6\u00f7\u0003\u0002\u0002\u0002\u00f7\u00f9",
-  "\u0007+\u0002\u0002\u00f8\u00fa\u0005l7\u0002\u00f9\u00f8\u0003\u0002",
-  "\u0002\u0002\u00f9\u00fa\u0003\u0002\u0002\u0002\u00fa\u001b\u0003\u0002",
-  "\u0002\u0002\u00fb\u00fc\u0007\u000e\u0002\u0002\u00fc\u00fd\u00073",
-  "\u0002\u0002\u00fd\u00fe\u0005\u001e\u0010\u0002\u00fe\u00ff\u00076",
-  "\u0002\u0002\u00ff\u0100\u0005 \u0011\u0002\u0100\u0101\u00074\u0002",
+  "\u0007A\u0002\u0002\u00e5\u00e7\u0007@\u0002\u0002\u00e6\u00e1\u0003",
+  "\u0002\u0002\u0002\u00e6\u00e2\u0003\u0002\u0002\u0002\u00e6\u00e3\u0003",
+  "\u0002\u0002\u0002\u00e6\u00e4\u0003\u0002\u0002\u0002\u00e6\u00e5\u0003",
+  "\u0002\u0002\u0002\u00e7\u00ea\u0003\u0002\u0002\u0002\u00e8\u00e6\u0003",
+  "\u0002\u0002\u0002\u00e8\u00e9\u0003\u0002\u0002\u0002\u00e9\u00eb\u0003",
+  "\u0002\u0002\u0002\u00ea\u00e8\u0003\u0002\u0002\u0002\u00eb\u00ec\u0007",
+  "2\u0002\u0002\u00ec\u0019\u0003\u0002\u0002\u0002\u00ed\u00ee\u0005",
+  " \u0011\u0002\u00ee\u00ef\u0005R*\u0002\u00ef\u00f0\u0007,\u0002\u0002",
+  "\u00f0\u00f5\u0005\u0014\u000b\u0002\u00f1\u00f2\u0007/\u0002\u0002",
+  "\u00f2\u00f3\u0005\u0010\t\u0002\u00f3\u00f4\u00070\u0002\u0002\u00f4",
+  "\u00f6\u0003\u0002\u0002\u0002\u00f5\u00f1\u0003\u0002\u0002\u0002\u00f5",
+  "\u00f6\u0003\u0002\u0002\u0002\u00f6\u00f7\u0003\u0002\u0002\u0002\u00f7",
+  "\u00f9\u0007+\u0002\u0002\u00f8\u00fa\u0005l7\u0002\u00f9\u00f8\u0003",
+  "\u0002\u0002\u0002\u00f9\u00fa\u0003\u0002\u0002\u0002\u00fa\u001b\u0003",
+  "\u0002\u0002\u0002\u00fb\u00fc\u0007\u000e\u0002\u0002\u00fc\u00fd\u0007",
+  "3\u0002\u0002\u00fd\u00fe\u0005\u001e\u0010\u0002\u00fe\u00ff\u0007",
+  "6\u0002\u0002\u00ff\u0100\u0005 \u0011\u0002\u0100\u0101\u00074\u0002",
   "\u0002\u0101\u0102\u0005V,\u0002\u0102\u0103\u0007,\u0002\u0002\u0103",
   "\u0108\u0005\u0014\u000b\u0002\u0104\u0105\u0007/\u0002\u0002\u0105",
   "\u0106\u0005\u0010\t\u0002\u0106\u0107\u00070\u0002\u0002\u0107\u0109",
@@ -1929,14 +1929,25 @@ OneofContext.prototype.emptyStatement = function (i) {
   }
 };
 
-OneofContext.prototype.lineComment = function (i) {
+OneofContext.prototype.LINE_COMMENT = function (i) {
   if (i === undefined) {
     i = null;
   }
   if (i === null) {
-    return this.getTypedRuleContexts(LineCommentContext);
+    return this.getTokens(Protobuf3Parser.LINE_COMMENT);
   } else {
-    return this.getTypedRuleContext(LineCommentContext, i);
+    return this.getToken(Protobuf3Parser.LINE_COMMENT, i);
+  }
+};
+
+OneofContext.prototype.COMMENT = function (i) {
+  if (i === undefined) {
+    i = null;
+  }
+  if (i === null) {
+    return this.getTokens(Protobuf3Parser.COMMENT);
+  } else {
+    return this.getToken(Protobuf3Parser.COMMENT, i);
   }
 };
 
@@ -1948,6 +1959,17 @@ OneofContext.prototype.comment = function (i) {
     return this.getTypedRuleContexts(CommentContext);
   } else {
     return this.getTypedRuleContext(CommentContext, i);
+  }
+};
+
+OneofContext.prototype.lineComment = function (i) {
+  if (i === undefined) {
+    i = null;
+  }
+  if (i === null) {
+    return this.getTypedRuleContexts(LineCommentContext);
+  } else {
+    return this.getTypedRuleContext(LineCommentContext, i);
   }
 };
 
@@ -2143,12 +2165,12 @@ Protobuf3Parser.prototype.oneof = function () {
 
         case 4:
           this.state = 226;
-          this.lineComment();
+          this.match(Protobuf3Parser.LINE_COMMENT);
           break;
 
         case 5:
           this.state = 227;
-          this.comment();
+          this.match(Protobuf3Parser.COMMENT);
           break;
       }
       this.state = 232;
