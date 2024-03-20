@@ -216,17 +216,19 @@ const convertFieldsToStatements = ({ fields, spacePrefix, protoVersion, internal
         const isReference = !!field.$ref;
         const isExternalRef = isReference ? field.$ref.startsWith('file://') : false;
         const { fieldType, fieldOptions, hasReferenceError } = getFieldInfo({ field, isReference, isExternalRef, internalDefinitions, modelDefinitions, externalDefinitions });
+        const fieldStatement = getFieldStatement({ field, fieldType, fieldName, fieldOptions, protoVersion });
+
         if (hasFieldNumberError) {
-            return `${spacePrefix}/*${getValidatedFieldRule({ fieldRule: field.repetition, protoVersion })}${fieldType} ${fieldName} = ${field.fieldNumber};\tERROR: you must specify a field number to include this field in the script*/`
+            return `${spacePrefix}/*${fieldStatement}\tERROR: you must specify a field number to include this field in the script*/`;
         }
         if (hasReferenceError) {
-            return `${spacePrefix}/*${getValidatedFieldRule({ fieldRule: field.repetition, protoVersion })}${fieldType} ${fieldName} = ${field.fieldNumber};\tERROR: the field contains an incorrect reference to not existed definition*/`
+            return `${spacePrefix}/*${fieldStatement}\tERROR: the field contains an incorrect reference to not existed definition*/`;
         }
         if (!field.isActivated) {
-            return `${spacePrefix}// ${getValidatedFieldRule({ fieldRule: field.repetition, protoVersion })}${fieldType} ${fieldName} = ${field.fieldNumber}${getFieldOptionsStatement(fieldOptions)}; ${field.description || ''}`
+            return `${spacePrefix}// ${fieldStatement} ${field.description || ''}`;
         }
 
-        return `${spacePrefix}${getValidatedFieldRule({ fieldRule: field.repetition, protoVersion })}${fieldType} ${fieldName} = ${field.fieldNumber}${getFieldOptionsStatement(fieldOptions)}; ${field.description && field.description !== '' ? ` //${field.description}` : ''}`
+        return `${spacePrefix}${fieldStatement} ${field.description ? ` //${field.description}` : ''}`;
     });
 }
 
@@ -296,6 +298,13 @@ const getFieldOptionsStatement = (options) => {
     }
     return ` [${stringifiedOptions.join(', ')}]`;
 }
+
+const getFieldStatement = ({ field, fieldType, fieldName, fieldOptions, protoVersion }) => {
+    const fieldRuleStatement = getValidatedFieldRule({ fieldRule: field.repetition, protoVersion })
+    const fieldOptionsStatement = getFieldOptionsStatement(fieldOptions);
+
+    return `${fieldRuleStatement}${fieldType} ${fieldName} = ${field.fieldNumber}${fieldOptionsStatement};`;
+};
 
 module.exports = {
     generateCollectionScript
