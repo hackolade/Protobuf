@@ -29,7 +29,9 @@ const generateCollectionScript = data => {
     const internalDefinitions = parseDefinitions(getInternalDefinitions(data.internalDefinitions, jsonSchema.GUID));
     const modelDefinitions = [...parseDefinitions(data.modelDefinitions), ...internalDefinitions.filter(def => def.isTopLevel)];
     const externalDefinitions = parseDefinitions(data.externalDefinitions);
-    const usedModelDefinitionNames = getMessageUsedModelDefinitionNames({ jsonSchema, modelDefinitions, internalDefinitions });
+    const usedModelDefinitionNames = data.includeAllModelDefinitionsStatements
+            ? modelDefinitions.map(definition => definition.title)
+            : getMessageUsedModelDefinitionNames({ jsonSchema, modelDefinitions, internalDefinitions });
     const modelDefinitionsStatements = modelDefinitions
         .filter((definition) => usedModelDefinitionNames.includes(definition.title))
         .map((definition) =>
