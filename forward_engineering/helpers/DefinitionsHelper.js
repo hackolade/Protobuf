@@ -87,9 +87,7 @@ const checkIsModelDefinitionReference = ({ schema }) => {
  * @returns {object | undefined}
  */
 const getModelDefinitionByReference = ({ schema, modelDefinitions }) => {
-    const isModelDefinitionReference = checkIsModelDefinitionReference({
-        schema,
-    });
+    const isModelDefinitionReference = checkIsModelDefinitionReference({ schema });
 
     if (!isModelDefinitionReference) {
         return schema;
@@ -97,9 +95,7 @@ const getModelDefinitionByReference = ({ schema, modelDefinitions }) => {
 
     const [__, definitionName] = MODEL_DEFINITION_REF_REGEX.exec(schema.$ref);
 
-    return modelDefinitions.find(
-        (definition) => definition.title === definitionName
-    );
+    return modelDefinitions.find((definition) => definition.title === definitionName);
 };
 
 /**
@@ -107,29 +103,18 @@ const getModelDefinitionByReference = ({ schema, modelDefinitions }) => {
  * @returns {string[]}
  */
 const getUsedModelDefinitionNames = ({ schema, modelDefinitions }) => {
-    const isModelDefinitionReference = checkIsModelDefinitionReference({
-        schema,
-    });
+    const isModelDefinitionReference = checkIsModelDefinitionReference({ schema });
 
     if (isModelDefinitionReference) {
-        const definition = getModelDefinitionByReference({
-            schema,
-            modelDefinitions,
-        });
-        const usedModelDefinitionNames = getUsedModelDefinitionNames({
-            schema: definition,
-            modelDefinitions,
-        });
+        const definition = getModelDefinitionByReference({ schema, modelDefinitions });
+        const usedModelDefinitionNames = getUsedModelDefinitionNames({ schema: definition, modelDefinitions });
 
         return [definition?.title, ...usedModelDefinitionNames];
     }
 
     if (schema?.properties) {
         return Object.values(schema.properties).flatMap((propertySchema) => {
-            return getUsedModelDefinitionNames({
-                schema: propertySchema,
-                modelDefinitions,
-            });
+            return getUsedModelDefinitionNames({ schema: propertySchema, modelDefinitions });
         });
     }
 
@@ -145,24 +130,19 @@ const getMessageUsedModelDefinitionNames = ({
     modelDefinitions,
     internalDefinitions,
 }) => {
-    const schema = getModelDefinitionByReference({
-        schema: jsonSchema,
-        modelDefinitions,
-    });
-    const usedModelDefinitionNames = getUsedModelDefinitionNames({
-        schema,
-        modelDefinitions,
+    const schema = getModelDefinitionByReference({ schema: jsonSchema, modelDefinitions });
+    const usedModelDefinitionNamesInFields = getUsedModelDefinitionNames({ schema, modelDefinitions });
+    const usedModelDefinitionNamesInChoice = (jsonSchema?.oneOf || []).flatMap(propertySchema => {
+        return getUsedModelDefinitionNames({ schema: propertySchema, modelDefinitions });
     });
     const usedModelDefinitionNamesInInternalDefinitions =
         internalDefinitions.flatMap((definition) => {
-            return getUsedModelDefinitionNames({
-                schema: definition,
-                modelDefinitions,
-            });
+            return getUsedModelDefinitionNames({ schema: definition, modelDefinitions });
         });
 
     return [
-        ...usedModelDefinitionNames,
+        ...usedModelDefinitionNamesInFields,
+        ...usedModelDefinitionNamesInChoice,
         ...usedModelDefinitionNamesInInternalDefinitions,
     ];
 };
