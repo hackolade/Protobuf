@@ -37,7 +37,6 @@ const generateCollectionScript = data => {
         .map((definition) =>
             getDefinitionStatements({
                 jsonSchema: definition,
-                spacePrefix: '',
                 protoVersion,
                 internalDefinitions: internalDefinitions.filter(
                     (def) => def.isTopLevel
