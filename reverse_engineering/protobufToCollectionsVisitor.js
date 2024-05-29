@@ -1,14 +1,19 @@
-const { Protobuf3Visitor } = require("./parser/Protobuf3Visitor");
+const { Protobuf3Visitor } = require('./parser/Protobuf3Visitor');
 const { dependencies } = require('./appDependencies');
 const {
-	MESSAGE_TYPE, ENUM_TYPE, ENUM_OPTION_TYPE,
-	ENUM_FIELD_TYPE, FIELD_TYPE, ONE_OF_TYPE,
-	ONE_OF_FIELD_TYPE, RESERVED_FIELD_TYPE, MAP_TYPE, OPTION_FIELD_TYPE
-} = require('./helpers/parsingEntitiesTypes')
-
+	MESSAGE_TYPE,
+	ENUM_TYPE,
+	ENUM_OPTION_TYPE,
+	ENUM_FIELD_TYPE,
+	FIELD_TYPE,
+	ONE_OF_TYPE,
+	ONE_OF_FIELD_TYPE,
+	RESERVED_FIELD_TYPE,
+	MAP_TYPE,
+	OPTION_FIELD_TYPE,
+} = require('./helpers/parsingEntitiesTypes');
 
 class Visitor extends Protobuf3Visitor {
-
 	visitProto(ctx) {
 		const syntaxVersion = this.visit(ctx.syntax()).slice(-1);
 		const packageName = this.visit(ctx.packageStatement());
@@ -23,7 +28,7 @@ class Visitor extends Protobuf3Visitor {
 			options,
 			imports,
 			messages,
-			enums
+			enums,
 		};
 	}
 
@@ -40,7 +45,7 @@ class Visitor extends Protobuf3Visitor {
 		const value = getName(ctx.strLit());
 		return {
 			accessModifier,
-			value
+			value,
 		};
 	}
 
@@ -50,7 +55,7 @@ class Visitor extends Protobuf3Visitor {
 		return {
 			elementType: OPTION_FIELD_TYPE,
 			name,
-			value
+			value,
 		};
 	}
 
@@ -70,7 +75,7 @@ class Visitor extends Protobuf3Visitor {
 			elementType: MESSAGE_TYPE,
 			name,
 			body,
-			description: `${comment}${lineComment}`
+			description: `${comment}${lineComment}`,
 		};
 	}
 
@@ -79,7 +84,7 @@ class Visitor extends Protobuf3Visitor {
 	}
 
 	visitMessageElement(ctx) {
-		const option = this.visitIfExists(ctx, 'optionStatement')
+		const option = this.visitIfExists(ctx, 'optionStatement');
 		const field = this.visitIfExists(ctx, 'field');
 		const messageDef = this.visitIfExists(ctx, 'messageDef');
 		const enumDef = this.visitIfExists(ctx, 'enumDef');
@@ -90,7 +95,7 @@ class Visitor extends Protobuf3Visitor {
 	}
 
 	visitField(ctx) {
-		const comment = getName(ctx?.fieldLineComment())
+		const comment = getName(ctx?.fieldLineComment());
 		const type = getName(ctx.type_());
 		const name = getName(ctx.fieldName());
 		const fieldNumber = getName(ctx.fieldNumber());
@@ -103,7 +108,7 @@ class Visitor extends Protobuf3Visitor {
 			fieldNumber,
 			repetition,
 			options,
-			description: comment.replace('//', '').replace('\n', ' ').trim()
+			description: comment.replace('//', '').replace('\n', ' ').trim(),
 		};
 	}
 
@@ -116,7 +121,7 @@ class Visitor extends Protobuf3Visitor {
 		const value = getName(ctx.constant());
 		return {
 			name,
-			value
+			value,
 		};
 	}
 
@@ -129,7 +134,7 @@ class Visitor extends Protobuf3Visitor {
 			elementType: ENUM_TYPE,
 			name,
 			body,
-			description: `${comment}${lineComment}`
+			description: `${comment}${lineComment}`,
 		};
 	}
 
@@ -143,13 +148,13 @@ class Visitor extends Protobuf3Visitor {
 		if (option) {
 			return {
 				...option,
-				elementType: ENUM_OPTION_TYPE
+				elementType: ENUM_OPTION_TYPE,
 			};
 		}
 		if (field) {
 			return {
 				...field,
-				elementType: ENUM_FIELD_TYPE
+				elementType: ENUM_FIELD_TYPE,
 			};
 		}
 	}
@@ -163,7 +168,7 @@ class Visitor extends Protobuf3Visitor {
 		return {
 			name,
 			value: enumValue,
-			options
+			options,
 		};
 	}
 
@@ -176,7 +181,7 @@ class Visitor extends Protobuf3Visitor {
 		const value = getName(ctx.constant());
 		return {
 			name,
-			value
+			value,
 		};
 	}
 
@@ -193,12 +198,12 @@ class Visitor extends Protobuf3Visitor {
 			options,
 			fields,
 			description: `${comment}${lineComment}`,
-		}
+		};
 	}
 
 	visitOneofField(ctx) {
 		const type = getName(ctx.type_());
-		const comment = getName(ctx?.fieldLineComment())
+		const comment = getName(ctx?.fieldLineComment());
 		const name = getName(ctx.fieldName());
 		const fieldNumber = getName(ctx.fieldNumber());
 		const options = this.visitIfExists(ctx, 'fieldOptions', []);
@@ -208,7 +213,7 @@ class Visitor extends Protobuf3Visitor {
 			name,
 			fieldNumber,
 			options,
-			description: comment.replace('//', '').replace('\n', ' ').trim()
+			description: comment.replace('//', '').replace('\n', ' ').trim(),
 		};
 	}
 
@@ -224,7 +229,7 @@ class Visitor extends Protobuf3Visitor {
 			type,
 			name,
 			fieldNumber,
-			options
+			options,
 		};
 	}
 
@@ -233,8 +238,8 @@ class Visitor extends Protobuf3Visitor {
 		const ranges = this.visitIfExists(ctx, 'ranges');
 		return {
 			elementType: RESERVED_FIELD_TYPE,
-			values: ranges || fieldNames
-		}
+			values: ranges || fieldNames,
+		};
 	}
 
 	visitReservedFieldNames(ctx) {
@@ -246,11 +251,11 @@ class Visitor extends Protobuf3Visitor {
 	}
 
 	visitRange_(ctx) {
-		const isRange = this.visitFlagValue(ctx, 'TO')
+		const isRange = this.visitFlagValue(ctx, 'TO');
 		if (isRange) {
 			const start = getName(ctx.intLit()[0]);
 			const end = getName(ctx.intLit()[1]);
-			return `${start} to ${end}`
+			return `${start} to ${end}`;
 		}
 		return getName(ctx.intLit()[0]);
 	}
@@ -283,12 +288,11 @@ class Visitor extends Protobuf3Visitor {
 			return false;
 		}
 	}
-
 }
 
 const getLabelValue = (context, label) => {
 	return context[label]?.text ? removeQuotes(context[label]?.text) : '';
-}
+};
 
 const getName = context => {
 	if (!context || dependencies.lodash.isEmpty(context)) {

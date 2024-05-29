@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const fs = require('fs');
 const path = require('path');
@@ -8,7 +8,7 @@ const Protobuf3Parser = require('./parser/Protobuf3Parser');
 const protoToCollectionsVisitor = require('./protobufToCollectionsVisitor');
 const ExprErrorListener = require('./antlrErrorListener');
 const { setDependencies, dependencies } = require('./appDependencies');
-const { parseDescriptor } = require('./services/descriptorToProtoStringService')
+const { parseDescriptor } = require('./services/descriptorToProtoStringService');
 const { convertParsedFileDataToCollections } = require('./services/converterService');
 const { adaptJsonSchema } = require('./helpers/adaptJsonSchema/adaptJsonSchema');
 
@@ -18,10 +18,10 @@ module.exports = {
 		const _ = dependencies.lodash;
 		try {
 			let input = await handleFileData(data.filePath);
-			const isDescriptor = !_.isError(_.attempt(JSON.parse, input))
+			const isDescriptor = !_.isError(_.attempt(JSON.parse, input));
 			if (isDescriptor) {
 				const parsedDescriptor = JSON.parse(input);
-				input = parseDescriptor(parsedDescriptor.fileDescriptorSet)
+				input = parseDescriptor(parsedDescriptor.fileDescriptorSet);
 			}
 			const chars = new antlr4.InputStream(input);
 			const lexer = new Protobuf3Lexer.Protobuf3Lexer(chars);
@@ -31,7 +31,7 @@ module.exports = {
 			parser.removeErrorListeners();
 			parser.addErrorListener(new ExprErrorListener());
 			const fileDefinitions = parser.proto().accept(new protoToCollectionsVisitor());
-			if(_.isEmpty(fileDefinitions.messages) && _.isEmpty(fileDefinitions.enums)){
+			if (_.isEmpty(fileDefinitions.messages) && _.isEmpty(fileDefinitions.enums)) {
 				const errorObject = {
 					message: `No definitions were found in the file`,
 					stack: {},
@@ -41,7 +41,6 @@ module.exports = {
 			}
 			const result = convertParsedFileDataToCollections(fileDefinitions, path.basename(data.filePath));
 			callback(null, result, { dbVersion: fileDefinitions.syntaxVersion }, [], 'multipleSchema');
-
 		} catch (e) {
 			const errorObject = {
 				message: _.get(e, 'message', ''),
@@ -58,7 +57,6 @@ module.exports = {
 
 const handleFileData = filePath => {
 	return new Promise((resolve, reject) => {
-
 		fs.readFile(filePath, 'utf-8', (err, content) => {
 			if (err) {
 				reject(err);
@@ -67,4 +65,4 @@ const handleFileData = filePath => {
 			}
 		});
 	});
-}
+};
