@@ -35,7 +35,8 @@
     "description": "Hackolade plugin for Protocol Buffers",
     "disabled": false,
     "dependencies": {
-        "antlr4": "4.8.0"
+        "antlr4": "4.8.0",
+        "protobufjs": "7.3.0"
     },
     "lint-staged": {
         "*.{js,json}": "prettier --write"
