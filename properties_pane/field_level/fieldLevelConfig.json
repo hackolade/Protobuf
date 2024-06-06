@@ -786,8 +786,6 @@ making sure that you maintain a proper JSON format.
 				}
 
 			},
-			"minProperties",
-			"maxProperties",
 			"dependencies",
 			"additionalProperties",
 			{
