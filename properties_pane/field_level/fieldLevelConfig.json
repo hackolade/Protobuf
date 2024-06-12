@@ -786,9 +786,9 @@ making sure that you maintain a proper JSON format.
 				}
 
 			},
-			"dependencies",
 			"minProperties",
 			"maxProperties",
+			"dependencies",
 			"additionalProperties",
 			{
 				"propertyName": "Reserved field names",
