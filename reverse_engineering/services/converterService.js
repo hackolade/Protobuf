@@ -1,4 +1,4 @@
-const { dependencies } = require('../appDependencies');
+const _ = require('lodash');
 const { getRootMessageName } = require('../helpers/rootMessageFinder');
 const { fixFileName, determineSchemaType } = require('../helpers/fileNameHelper');
 const {
@@ -16,7 +16,6 @@ const {
 const NEW_DATABASE = 'New File';
 
 const convertParsedFileDataToCollections = (parsedData, fileName) => {
-	const _ = dependencies.lodash;
 	const dbName = fixFileName(fileName);
 	const schemaType = determineSchemaType(fileName);
 	const rootMessageName = getRootMessageName(parsedData.messages);
@@ -214,7 +213,6 @@ const generalFieldConverter = ({
 	internalDefinitions = [],
 	hackoladeGeneratedDefsNames = [],
 }) => {
-	const _ = dependencies.lodash;
 	if (hackoladeGeneratedDefsNames.includes(field.type) && internalDefinitionsNames.includes(field.type)) {
 		return internalDefinitions.find(def => def.name === field.type);
 	}
@@ -280,7 +278,6 @@ const messageFieldConverter = ({
 	internalDefinitions = [],
 	hackoladeGeneratedDefsNames = [],
 }) => {
-	const _ = dependencies.lodash;
 	const entitiesDefinitionsTypes = message.body
 		.filter(field => field)
 		.filter(field => [MESSAGE_TYPE, ENUM_TYPE].includes(field.elementType));
@@ -409,7 +406,6 @@ const getMapKeyType = type => {
 };
 
 const convertEnum = parsedEnum => {
-	const _ = dependencies.lodash;
 	const parsedOptions = parsedEnum.body
 		.filter(Boolean)
 		.filter(element => element)
@@ -440,7 +436,6 @@ const convertEnum = parsedEnum => {
 };
 
 const getHackoladeGeneratedDefNames = rootMessage => {
-	const _ = dependencies.lodash;
 	const usageFrequency = _.countBy(countDefinitionUsageFrequency(rootMessage), name => name);
 	return Object.entries(usageFrequency)
 		.filter(([name, frequency]) => frequency === 1)
@@ -448,7 +443,6 @@ const getHackoladeGeneratedDefNames = rootMessage => {
 };
 
 const countDefinitionUsageFrequency = message => {
-	const _ = dependencies.lodash;
 	const defNamesInFields = message.body
 		.filter(Boolean)
 		.filter(element => element.elementType === FIELD_TYPE)

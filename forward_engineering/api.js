@@ -1,11 +1,11 @@
-'use strict';
+const _ = require('lodash');
 const { generateCollectionScript } = require('./services/protoScriptGenerationService');
-const { setDependencies, dependencies } = require('../reverse_engineering/appDependencies');
+const { formatComment } = require('./helpers/utils');
+
 const RECORD_NAME_STRATEGY = 'RecordNameStrategy';
 const TOPIC_RECORD_NAME_STRATEGY = 'TopicRecordNameStrategy';
 const protobufjs = require('protobufjs');
 const descriptor = require('protobufjs/ext/descriptor');
-const { formatComment } = require('./helpers/utils');
 
 const defaultContainerData = [
 	{
@@ -17,11 +17,8 @@ const defaultContainerData = [
 
 module.exports = {
 	generateContainerScript(data, logger, callback, app) {
-		setDependencies(app);
-		const _ = dependencies.lodash;
 		const containerData = !_.isEmpty(data.containerData) ? data.containerData : defaultContainerData;
 		try {
-			const _ = dependencies.lodash;
 			let preparedData = {
 				...data,
 				containerData,
@@ -80,12 +77,10 @@ module.exports = {
 			callback(errorObject);
 		}
 	},
+
 	generateScript(data, logger, callback, app) {
-		setDependencies(app);
-		const _ = dependencies.lodash;
 		const containerData = !_.isEmpty(data.containerData) ? data.containerData : defaultContainerData;
 		try {
-			const _ = dependencies.lodash;
 			let preparedData = {
 				...data,
 				containerData,
@@ -117,7 +112,6 @@ module.exports = {
 	},
 
 	prepareScript(script, data) {
-		const _ = dependencies.lodash;
 		const targetSchemaRegistry = _.get(data, 'options.targetScriptOptions.keyword');
 		if (targetSchemaRegistry === 'confluentSchemaRegistry') {
 			return this.getConfluentPostQuery({ data, schema: script });
@@ -130,7 +124,6 @@ module.exports = {
 	},
 
 	getPulsarPostQuery({ data, schema }) {
-		const _ = dependencies.lodash;
 		const root = protobufjs.parse(schema).root;
 		const descriptorMsg = root.toDescriptor('proto3');
 		const buffer = descriptor.FileDescriptorSet.encode(descriptorMsg).finish();
@@ -158,7 +151,6 @@ module.exports = {
 
 	getConfluentPostQuery({ data, schema }) {
 		const getName = () => {
-			const _ = dependencies.lodash;
 			const name = this.getRecordName(data);
 
 			const schemaType = _.get(data, 'containerData[0].schemaType');

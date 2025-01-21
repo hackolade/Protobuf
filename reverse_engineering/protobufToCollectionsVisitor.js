@@ -1,5 +1,5 @@
+const _ = require('lodash');
 const { Protobuf3Visitor } = require('./parser/Protobuf3Visitor');
-const { dependencies } = require('./appDependencies');
 const {
 	MESSAGE_TYPE,
 	ENUM_TYPE,
@@ -295,7 +295,7 @@ const getLabelValue = (context, label) => {
 };
 
 const getName = context => {
-	if (!context || dependencies.lodash.isEmpty(context)) {
+	if (!context || _.isEmpty(context)) {
 		return '';
 	}
 	return removeQuotes(context.getText());

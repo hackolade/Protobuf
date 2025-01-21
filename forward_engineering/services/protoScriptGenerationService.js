@@ -1,4 +1,4 @@
-const { dependencies } = require('../../reverse_engineering/appDependencies');
+const _ = require('lodash');
 const {
 	parseDefinitions,
 	getDefinitionInfo,
@@ -98,7 +98,6 @@ const getMessageStatement = ({
 	modelDefinitions,
 	externalDefinitions,
 }) => {
-	const _ = dependencies.lodash;
 	if (jsonSchema.$ref) {
 		const definitionName = jsonSchema.$ref.slice('#model/definitions/'.length);
 		jsonSchema = modelDefinitions.find(definition => definition.title === definitionName) || jsonSchema;
@@ -162,7 +161,6 @@ const concutFieldsStatements = (fieldsStatements, oneOfStatement, oneOfIndex) =>
 
 const getOneOfStatement = (oneOfMeta, fields, spacePrefix = '') => {
 	const oneOfName = oneOfMeta?.name || 'one_of';
-	const _ = dependencies.lodash;
 	if (_.isEmpty(fields)) {
 		return '';
 	}
@@ -206,7 +204,6 @@ const getOptionStatement = (option, spacePrefix) => {
 };
 
 const getReservedStatements = (data, spacePrefix) => {
-	const _ = dependencies.lodash;
 	const reservedFieldNames = !_.isEmpty(data.reservedFieldNames)
 		? `${spacePrefix}reserved ${data.reservedFieldNames};`
 		: ``;
@@ -228,7 +225,6 @@ const getFieldsStatement = ({
 	externalDefinitions,
 	oneOfIndex,
 }) => {
-	const _ = dependencies.lodash;
 	const oneOfFields = Object.entries(
 		(jsonSchema.oneOf || []).reduce((properties, property) => ({ ...properties, ...property.properties }), {}),
 	).reduce((oneOfProperties, [key, value]) => ({ ...oneOfProperties, [key]: { ...value, parent: 'oneOf' } }), {});
@@ -303,7 +299,6 @@ const getFieldInfo = ({
 	externalDefinitions,
 }) => {
 	const getUDT = udt => {
-		const _ = dependencies.lodash;
 		return !_.isEmpty(udt) ? udt : 'string';
 	};
 	if (isExternalRef) {
@@ -352,8 +347,6 @@ const getValidatedFieldRule = ({ fieldRule, protoVersion }) => {
 };
 
 const getFieldOptionsStatement = options => {
-	const _ = dependencies.lodash;
-
 	const stringifiedOptions = (options || [])
 		.filter(option => option?.optionKey && option?.optionValue)
 		.filter(option => option.optionKey !== 'allow_alias')
