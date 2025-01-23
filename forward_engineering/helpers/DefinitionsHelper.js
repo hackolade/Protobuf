@@ -1,9 +1,7 @@
-const { dependencies } = require('../../reverse_engineering/appDependencies');
-
+const _ = require('lodash');
 const MODEL_DEFINITION_REF_REGEX = /#model\/definitions\/(.*)/;
 
 const parseDefinitions = definitions => {
-	const _ = dependencies.lodash;
 	return Object.entries(_.get(JSON.parse(definitions), 'properties', {}))
 		.map(([key, value]) => ({ title: key, ...value }))
 		.filter(definition => {
@@ -14,7 +12,6 @@ const parseDefinitions = definitions => {
 };
 
 const getDefinitionInfo = (definitions, fieldOptions, referenceId) => {
-	const _ = dependencies.lodash;
 	const requiredDefinition = getReferencedDefinition(definitions, referenceId);
 
 	if (requiredDefinition) {
@@ -30,7 +27,6 @@ const getDefinitionInfo = (definitions, fieldOptions, referenceId) => {
 };
 
 const getReferencedDefinition = (definitions, referenceId) => {
-	const _ = dependencies.lodash;
 	return definitions.find(definition =>
 		_.get(definition, 'definitionRefs', []).some(ref => _.last(ref) === referenceId),
 	);
@@ -71,7 +67,6 @@ const extractDefinitionsFromProperties = (properties = []) => {
 };
 
 const convertEntityTypeToValidName = type => {
-	const _ = dependencies.lodash;
 	return _.lowerCase(type).split(' ').join('_');
 };
 

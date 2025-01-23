@@ -1,11 +1,10 @@
+const _ = require('lodash');
 const protobufjs = require('protobufjs');
-const { dependencies } = require('../appDependencies');
 const descriptor = require('protobufjs/ext/descriptor');
 
 let syntax = 'proto3';
 
 const parseDescriptor = descriptorString => {
-	const _ = dependencies.lodash;
 	const buffer = Buffer.from(descriptorString, 'base64');
 	const decodedDescriptor = descriptor.FileDescriptorSet.decode(buffer);
 	const root = protobufjs.Root.fromDescriptor(decodedDescriptor);
@@ -36,7 +35,6 @@ const determineSyntax = definitions => {
 };
 
 const parseDefinition = definition => {
-	const _ = dependencies.lodash;
 	if (_.has(definition, 'body.fields')) {
 		return getMessageStatement(definition);
 	}
@@ -55,7 +53,6 @@ const getEnumStatement = definition => {
 };
 
 const getMessageStatement = definition => {
-	const _ = dependencies.lodash;
 	const fields = definition.body.fields;
 	const reservedValuesStatement = getReservedStatement(definition.body.reserved);
 	const getDefaultRule = () => {
@@ -88,7 +85,6 @@ const getMessageStatement = definition => {
 };
 
 const getReservedStatement = reservedStatements => {
-	const _ = dependencies.lodash;
 	if (!reservedStatements) {
 		return '';
 	}
@@ -114,7 +110,6 @@ const getReservedStatement = reservedStatements => {
 		);
 	};
 	const getFieldNumberValue = fieldNumber => {
-		const _ = dependencies.lodash;
 		const uniqueNumbers = _.uniq(fieldNumber);
 		if (_.size(uniqueNumbers) === 1) {
 			return `${uniqueNumbers[0]}`;
@@ -125,13 +120,14 @@ const getReservedStatement = reservedStatements => {
 	const { columnNames, filedNumbers } = splitColumnNamesAndFieldNumbers(reservedStatements);
 	const reservedColumns = columnNames.map(name => `"${name}"`).join(', ');
 	const reservedNumbers = filedNumbers.map(number => getFieldNumberValue(number)).join(', ');
-	return [
-		`${!_.isEmpty(reservedColumns) ? `reserved ${reservedColumns};` : ''}`,
-		`${!_.isEmpty(reservedNumbers) ? `reserved ${reservedNumbers};` : ''}`,
-	].join('\n');
+
+	const columnsStatement = !_.isEmpty(reservedColumns) ? `reserved ${reservedColumns};` : '';
+	const numbersStatement = !_.isEmpty(reservedNumbers) ? `reserved ${reservedNumbers};` : '';
+
+	return [columnsStatement, numbersStatement].join('\n');
 };
+
 const constructPackageName = (descriptor, packageNameParts = []) => {
-	const _ = dependencies.lodash;
 	const singlePropertyObject = _.keys(descriptor).length === 1;
 	if (_.has(descriptor, 'nested') && singlePropertyObject) {
 		return constructPackageName(descriptor.nested, packageNameParts);

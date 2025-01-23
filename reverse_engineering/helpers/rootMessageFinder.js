@@ -1,7 +1,6 @@
-const { dependencies } = require('../appDependencies');
+const _ = require('lodash');
 
 const getRootMessageName = messages => {
-	const _ = dependencies.lodash;
 	const topLevelMessagesNames = messages.map(message => message.name);
 	const referencedTopLevelNames = _.uniq(
 		messages.reduce((referencedTopLevelNames, message) => {
@@ -18,7 +17,6 @@ const getRootMessageName = messages => {
 };
 
 const getTopLevelTypes = (message, topLevelMessages) => {
-	const _ = dependencies.lodash;
 	const fieldProperties = message.body
 		.filter(property => property)
 		.filter(property => property.elementType === 'field');

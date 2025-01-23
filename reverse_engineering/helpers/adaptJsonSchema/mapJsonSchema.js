@@ -1,9 +1,8 @@
-const { dependencies } = require('../../appDependencies');
+const _ = require('lodash');
 
-const add = (obj, properties) => Object.assign({}, obj, properties);
+const add = (obj, properties) => ({ ...obj, ...properties });
 
 const mapJsonSchema = (jsonSchema, callback) => {
-	const _ = dependencies.lodash;
 	const mapProperties = (properties, mapper) =>
 		Object.keys(properties).reduce((newProperties, propertyName) => {
 			return add(newProperties, {
@@ -25,9 +24,7 @@ const mapJsonSchema = (jsonSchema, callback) => {
 				return jsonSchema;
 			}
 
-			return Object.assign({}, jsonSchema, {
-				[propertyName]: mapper(jsonSchema[propertyName]),
-			});
+			return { ...jsonSchema, [propertyName]: mapper(jsonSchema[propertyName]) };
 		}, jsonSchema);
 	};
 	if (!_.isPlainObject(jsonSchema)) {
@@ -37,7 +34,7 @@ const mapJsonSchema = (jsonSchema, callback) => {
 	const propertiesLike = ['properties', 'definitions', 'patternProperties'];
 	const itemsLike = ['items', 'oneOf', 'allOf', 'anyOf', 'not'];
 
-	const copyJsonSchema = Object.assign({}, jsonSchema);
+	const copyJsonSchema = { ...jsonSchema };
 	const jsonSchemaWithNewProperties = applyTo(
 		propertiesLike,
 		copyJsonSchema,

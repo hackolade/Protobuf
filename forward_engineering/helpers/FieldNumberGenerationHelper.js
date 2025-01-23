@@ -1,7 +1,6 @@
-const { dependencies } = require('../../reverse_engineering/appDependencies');
+const _ = require('lodash');
 
 const fixFieldNumbers = ({ fields, oneOfFields, oneOfIndex, reservedNumbers }) => {
-	const _ = dependencies.lodash;
 	const fieldEntries = Object.entries(fields);
 	fieldEntries.splice(oneOfIndex, 0, ...Object.entries(oneOfFields));
 	const checks = getChecksFromReservedNumbers(reservedNumbers);
@@ -74,8 +73,6 @@ const getChecksFromReservedNumbers = reservedNumbers => {
 };
 
 const generateSequence = (fieldsNumber, checks) => {
-	const _ = dependencies.lodash;
-
 	const fieldsNumberPositionRange = _.range(1, fieldsNumber + 1);
 
 	return fieldsNumberPositionRange.reduce(
@@ -85,7 +82,6 @@ const generateSequence = (fieldsNumber, checks) => {
 };
 
 const getNextFieldNumber = (position, usedNumbers, checks) => {
-	const _ = dependencies.lodash;
 	const candidates = _.range(position, position + 1000);
 	const nextNumber = candidates.find(
 		candidate => !usedNumbers.includes(candidate) && notReservedField(candidate, checks),

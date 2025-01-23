@@ -1,5 +1,4 @@
-'use strict';
-
+const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 const antlr4 = require('antlr4');
@@ -7,15 +6,12 @@ const Protobuf3Lexer = require('./parser/Protobuf3Lexer');
 const Protobuf3Parser = require('./parser/Protobuf3Parser');
 const protoToCollectionsVisitor = require('./protobufToCollectionsVisitor');
 const ExprErrorListener = require('./antlrErrorListener');
-const { setDependencies, dependencies } = require('./appDependencies');
 const { parseDescriptor } = require('./services/descriptorToProtoStringService');
 const { convertParsedFileDataToCollections } = require('./services/converterService');
 const { adaptJsonSchema } = require('./helpers/adaptJsonSchema/adaptJsonSchema');
 
 module.exports = {
 	reFromFile: async (data, logger, callback, app) => {
-		setDependencies(app);
-		const _ = dependencies.lodash;
 		try {
 			let input = await handleFileData(data.filePath);
 			const isDescriptor = !_.isError(_.attempt(JSON.parse, input));
