@@ -1,16 +1,14 @@
 // Generated from grammars/Protobuf3.g4 by ANTLR 4.7.2
 // jshint ignore: start
-var antlr4 = require("antlr4/index");
+var antlr4 = require('antlr4/index');
 
 // This class defines a complete listener for a parse tree produced by Protobuf3Parser.
 function Protobuf3Listener() {
-  antlr4.tree.ParseTreeListener.call(this);
-  return this;
+	antlr4.tree.ParseTreeListener.call(this);
+	return this;
 }
 
-Protobuf3Listener.prototype = Object.create(
-  antlr4.tree.ParseTreeListener.prototype,
-);
+Protobuf3Listener.prototype = Object.create(antlr4.tree.ParseTreeListener.prototype);
 Protobuf3Listener.prototype.constructor = Protobuf3Listener;
 
 // Enter a parse tree produced by Protobuf3Parser#proto.
