@@ -35,7 +35,7 @@
     "disabled": false,
     "dependencies": {
         "antlr4": "4.8.0",
-        "lodash": "4.17.21",
+        "lodash": "4.17.23",
         "protobufjs": "7.3.0"
     },
     "lint-staged": {
